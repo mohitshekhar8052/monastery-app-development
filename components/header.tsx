@@ -5,6 +5,8 @@ import { MapPin, Search, Menu, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useState, useEffect } from "react"
+import { UserMenu } from "./user-menu"
+import { GamificationWidget } from "./gamification-widget"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -115,6 +117,9 @@ export function Header() {
                 <Search className="h-4 w-4" />
               </Button>
             </Link>
+
+            <UserMenu />
+
             <Button
               variant="ghost"
               size="sm"
@@ -174,6 +179,8 @@ export function Header() {
           </div>
         </div>
       </header>
+
+      <GamificationWidget />
 
       <div className="fixed bottom-6 right-6 z-40">
         <Link href="/meditation">
