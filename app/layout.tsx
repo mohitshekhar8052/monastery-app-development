@@ -7,6 +7,8 @@ import { Suspense } from "react"
 import "./globals.css"
 import { AuthProvider } from "@/components/auth-provider"
 import { GamificationProvider } from "@/components/gamification-provider"
+import { LanguageProvider } from "@/components/language-provider"
+import { OfflineProvider } from "@/components/offline-provider"
 
 export const metadata: Metadata = {
   title: "Sacred Journeys - Virtual Monastery Tours",
@@ -22,11 +24,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <AuthProvider>
-          <GamificationProvider>
-            <Suspense fallback={null}>{children}</Suspense>
-          </GamificationProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <OfflineProvider>
+            <AuthProvider>
+              <GamificationProvider>
+                <Suspense fallback={null}>{children}</Suspense>
+              </GamificationProvider>
+            </AuthProvider>
+          </OfflineProvider>
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

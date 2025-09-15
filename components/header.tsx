@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useState, useEffect } from "react"
 import { UserMenu } from "./user-menu"
 import { GamificationWidget } from "./gamification-widget"
+import { LanguageSelector } from "./language-selector"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -34,17 +35,17 @@ export function Header() {
             isScrolled ? "h-12" : "h-14"
           }`}
         >
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div
-              className={`flex items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 ${
-                isScrolled ? "h-6 w-6" : "h-7 w-7"
+              className={`flex items-center justify-center rounded-full bg-primary text-primary-foreground transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 shadow-md ${
+                isScrolled ? "h-8 w-8" : "h-9 w-9"
               }`}
             >
-              <MapPin className={`transition-all duration-300 ${isScrolled ? "h-3 w-3" : "h-3.5 w-3.5"}`} />
+              <MapPin className={`transition-all duration-300 ${isScrolled ? "h-4 w-4" : "h-4.5 w-4.5"}`} />
             </div>
             <span
-              className={`font-semibold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent transition-all duration-300 ${
-                isScrolled ? "text-base" : "text-lg"
+              className={`font-bold text-foreground transition-all duration-300 ${
+                isScrolled ? "text-lg" : "text-xl"
               }`}
             >
               Sacred Journeys
@@ -93,6 +94,33 @@ export function Header() {
                 <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
                   <Link href="/events">📅 Events</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
+                  <Link href="/virtual-tours">🎯 Virtual Tours</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium hover:text-primary transition-all duration-300 group">
+                <span>Services</span>
+                <ChevronDown className="h-3 w-3 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200">
+                <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
+                  <Link href="/guide">🤖 AI Monk Guide</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
+                  <Link href="/hotels">🏨 Hotels Nearby</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
+                  <Link href="/emergency">🆘 Emergency Help</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
+                  <Link href="/donations">💖 Donate & Support</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="hover:bg-primary/5 transition-colors duration-200">
+                  <Link href="/offline">📱 Offline Mode</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -106,6 +134,8 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageSelector />
+
             <Link href="/search">
               <Button
                 variant="ghost"
@@ -167,6 +197,41 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 🧘 Meditation
+              </Link>
+              <Link
+                href="/guide"
+                className="block text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                🤖 AI Monk Guide
+              </Link>
+              <Link
+                href="/hotels"
+                className="block text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                🏨 Hotels Nearby
+              </Link>
+              <Link
+                href="/emergency"
+                className="block text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                🆘 Emergency Help
+              </Link>
+              <Link
+                href="/donations"
+                className="block text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                💖 Donate & Support
+              </Link>
+              <Link
+                href="/offline"
+                className="block text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                📱 Offline Mode
               </Link>
               <Link
                 href="/community"

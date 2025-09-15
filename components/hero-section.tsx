@@ -42,29 +42,45 @@ export function HeroSection() {
           stunning architecture, and cultural treasures from anywhere in the world.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up delay-300">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up delay-300 animate-float">
           <Link href="/tour/potala-palace">
             <Button
               size="lg"
-              className="text-base group hover:scale-105 transition-all duration-300 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl"
+              className="text-base group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white border-0 shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 hover:scale-110 transform-gpu animate-glow"
             >
-              <Play className="h-5 w-5 mr-2 group-hover:animate-pulse" />
-              Start Virtual Tour
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+              <Play className="h-5 w-5 mr-2 group-hover:animate-spin transition-transform duration-300 relative z-10" />
+              <span className="relative z-10 font-semibold">Start Virtual Tour</span>
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </Button>
+          </Link>
+          <Link href="/guide">
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-base group relative overflow-hidden bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 border-2 border-amber-300 hover:border-amber-400 text-amber-800 hover:text-amber-900 shadow-xl hover:shadow-amber-500/20 transition-all duration-500 hover:scale-110 transform-gpu"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-200/0 via-amber-200/30 to-amber-200/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+              <span className="text-2xl mr-2 group-hover:animate-bounce relative z-10">🤖</span>
+              <span className="relative z-10 font-semibold">Meet AI Monk Guide</span>
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-amber-300/10 to-orange-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Button>
           </Link>
           <Link href="/map">
             <Button
               variant="outline"
               size="lg"
-              className="text-base bg-background/80 backdrop-blur-sm hover:bg-background/90 hover:scale-105 transition-all duration-300 shadow-lg"
+              className="text-base group relative overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 border-2 border-emerald-300 hover:border-emerald-400 text-emerald-800 hover:text-emerald-900 shadow-xl hover:shadow-emerald-500/20 transition-all duration-500 hover:scale-110 transform-gpu"
             >
-              <MapPin className="h-5 w-5 mr-2" />
-              Explore Map
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-200/0 via-emerald-200/30 to-emerald-200/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+              <MapPin className="h-5 w-5 mr-2 group-hover:animate-ping relative z-10" />
+              <span className="relative z-10 font-semibold">Explore Map</span>
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-300/10 to-teal-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Button>
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-16">
           <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-400">
             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shadow-lg overflow-hidden">
               <img
@@ -82,6 +98,18 @@ export function HeroSection() {
           </div>
 
           <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-500">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shadow-lg">
+              <span className="text-3xl">🤖</span>
+            </div>
+            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+              AI Monk Guide
+            </h3>
+            <p className="text-muted-foreground text-sm">
+              Get personalized guidance and wisdom from our AI spiritual assistant
+            </p>
+          </div>
+
+          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-600">
             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shadow-lg overflow-hidden">
               <img
                 src="/tibetan-mask-making-artisan-colorful-traditional.jpg"
@@ -97,19 +125,15 @@ export function HeroSection() {
             </p>
           </div>
 
-          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-600">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shadow-lg overflow-hidden">
-              <img
-                src="/monks-debating-courtyard-traditional-robes-animate.jpg"
-                alt="Cultural Events"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
+          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-700">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shadow-lg">
+              <span className="text-3xl">📱</span>
             </div>
             <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
-              Cultural Events
+              Offline Access
             </h3>
             <p className="text-muted-foreground text-sm">
-              Stay updated with festivals, ceremonies, and spiritual gatherings
+              Download content for offline viewing during your spiritual journeys
             </p>
           </div>
         </div>
@@ -126,8 +150,30 @@ export function HeroSection() {
             transform: translateY(0);
           }
         }
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        @keyframes glow {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6), 0 0 40px rgba(147, 51, 234, 0.3);
+          }
+        }
         .animate-fade-in-up {
           animation: fade-in-up 0.8s ease-out forwards;
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        .animate-glow {
+          animation: glow 2s ease-in-out infinite;
         }
         .delay-200 {
           animation-delay: 0.2s;
@@ -143,6 +189,9 @@ export function HeroSection() {
         }
         .delay-600 {
           animation-delay: 0.6s;
+        }
+        .delay-700 {
+          animation-delay: 0.7s;
         }
       `}</style>
     </section>
