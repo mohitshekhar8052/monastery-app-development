@@ -20,18 +20,18 @@ export function MapHeader() {
               <MapPin className="h-4 w-4" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold">Interactive Monastery Map</h1>
-              <div className="text-xs text-muted-foreground">Explore sacred locations across the Himalayas</div>
+              <h1 className="text-lg font-semibold">Sikkim Monastery Map</h1>
+              <div className="text-xs text-muted-foreground">Explore sacred monasteries of the Himalayan state</div>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <Badge variant="secondary" className="hidden sm:flex">
-            6 Monasteries
+            8 Monasteries
           </Badge>
           <Badge variant="outline" className="hidden sm:flex">
-            2 Routes Available
+            Sikkim Region
           </Badge>
 
           <Button variant="ghost" size="sm">

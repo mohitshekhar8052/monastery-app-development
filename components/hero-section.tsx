@@ -89,7 +89,7 @@ export function HeroSection() {
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300 cursor-pointer">
               360° Virtual Tours
             </h3>
             <p className="text-muted-foreground text-sm">
@@ -101,7 +101,7 @@ export function HeroSection() {
             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300 shadow-lg">
               <span className="text-3xl">🤖</span>
             </div>
-            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300">
+            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors duration-300 cursor-pointer">
               AI Monk Guide
             </h3>
             <p className="text-muted-foreground text-sm">

@@ -20,16 +20,11 @@ export function UserMenu() {
     return (
       <div className="flex items-center gap-2">
         <Link href="/auth/login">
-          <Button variant="ghost" size="sm">
-            Sign In
-          </Button>
-        </Link>
-        <Link href="/auth/signup">
           <Button
             size="sm"
             className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600 text-white"
           >
-            Sign Up
+            Login
           </Button>
         </Link>
       </div>

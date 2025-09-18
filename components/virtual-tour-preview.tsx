@@ -26,7 +26,7 @@ export function VirtualTourPreview() {
 
                 {/* Virtual Tour Controls Overlay */}
                 <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                  <Button size="lg" className="bg-background/90 text-foreground hover:bg-background">
+                  <Button size="lg" className="bg-white/95 text-gray-900 hover:bg-white hover:text-black shadow-lg">
                     <Play className="h-6 w-6 mr-2" />
                     Start 360° Tour
                   </Button>
@@ -35,19 +35,19 @@ export function VirtualTourPreview() {
                 {/* Tour Controls */}
                 <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Button size="sm" variant="secondary" className="bg-background/90">
+                    <Button size="sm" variant="secondary" className="bg-white/95 text-gray-900 hover:bg-white shadow-md">
                       <Volume2 className="h-4 w-4" />
                     </Button>
-                    <Button size="sm" variant="secondary" className="bg-background/90">
+                    <Button size="sm" variant="secondary" className="bg-white/95 text-gray-900 hover:bg-white shadow-md">
                       <RotateCcw className="h-4 w-4" />
                     </Button>
                   </div>
 
-                  <div className="text-sm text-background bg-foreground/80 px-3 py-1 rounded-full">
+                  <div className="text-sm text-white bg-black/80 px-3 py-1 rounded-full shadow-md">
                     Potala Palace - Main Hall
                   </div>
 
-                  <Button size="sm" variant="secondary" className="bg-background/90">
+                  <Button size="sm" variant="secondary" className="bg-white/95 text-gray-900 hover:bg-white shadow-md">
                     <Maximize className="h-4 w-4" />
                   </Button>
                 </div>
