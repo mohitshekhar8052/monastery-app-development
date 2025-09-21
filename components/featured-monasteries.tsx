@@ -80,57 +80,114 @@ export function FeaturedMonasteries() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {monasteries.map((monastery) => (
-            <Card key={monastery.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-              <div className="relative overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {monasteries.map((monastery, index) => (
+            <Card 
+              key={monastery.id} 
+              className="group relative overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-700 bg-gradient-to-br from-background via-background to-muted/20 hover:bg-gradient-to-br hover:from-background hover:via-muted/10 hover:to-primary/5 transform hover:-translate-y-2 hover:rotate-1 cursor-pointer animate-fade-in-up"
+              style={{
+                animationDelay: `${index * 150}ms`,
+                animationFillMode: 'both'
+              }}
+            >
+              {/* Animated border glow effect */}
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse-glow" />
+              
+              <div className="relative overflow-hidden rounded-t-lg">
+                {/* Animated shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 z-30" />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10 group-hover:from-black/50 group-hover:via-black/20 transition-all duration-500" />
                 <img
                   src={monastery.image || "/placeholder.svg"}
                   alt={monastery.name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-125 transition-transform duration-1000 ease-out group-hover:brightness-110"
                 />
-                <div className="absolute top-4 left-4">
-                  <Badge variant="secondary" className="bg-background/90 text-foreground">
+                
+                {/* Floating badge with bounce animation */}
+                <div className="absolute top-4 right-4 z-20 transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
+                  <Badge variant="secondary" className="bg-white/95 text-foreground shadow-lg backdrop-blur-sm border-0 animate-bounce-subtle">
                     {monastery.tags[0]}
                   </Badge>
                 </div>
+
+                {/* Overlay content with slide-up animation */}
+                <div className="absolute bottom-4 left-4 right-4 z-20 transform group-hover:translate-y-[-4px] transition-all duration-500">
+                  <CardTitle className="text-xl text-white font-bold mb-2 drop-shadow-lg group-hover:text-white/95 transition-colors duration-300">{monastery.name}</CardTitle>
+                  <div className="flex items-center text-white/90 text-sm group-hover:text-white transition-colors duration-300">
+                    <MapPin className="h-4 w-4 mr-1 group-hover:animate-pulse" />
+                    {monastery.location}
+                  </div>
+                </div>
+
+                {/* Floating particles effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                  <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-white/60 rounded-full animate-float-1" />
+                  <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-white/40 rounded-full animate-float-2" />
+                  <div className="absolute bottom-1/3 left-2/3 w-1 h-1 bg-white/50 rounded-full animate-float-3" />
+                </div>
               </div>
 
-              <CardHeader className="pb-3">
-                <CardTitle className="text-xl text-balance">{monastery.name}</CardTitle>
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  {monastery.location}
-                </div>
-              </CardHeader>
+              <CardContent className="p-6 relative">
+                {/* Animated background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <div className="relative z-10">
+                  <p className="text-sm text-muted-foreground text-pretty mb-6 leading-relaxed group-hover:text-foreground/80 transition-colors duration-500">{monastery.description}</p>
 
-              <CardContent className="pt-0">
-                <p className="text-sm text-muted-foreground text-pretty mb-4">{monastery.description}</p>
-
-                <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                  <div className="flex items-center">
-                    <Clock className="h-3 w-3 mr-1" />
-                    Est. {monastery.established}
+                  {/* Stats row with enhanced styling and animations */}
+                  <div className="flex items-center justify-between bg-muted/30 rounded-lg p-3 mb-4 group-hover:bg-muted/40 group-hover:shadow-inner transition-all duration-500">
+                    <div className="flex items-center text-xs text-muted-foreground group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2 group-hover:bg-primary/20 group-hover:rotate-12 transition-all duration-500">
+                        <Clock className="h-3 w-3 text-primary group-hover:animate-spin-slow" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-300">Est. {monastery.established}</div>
+                        <div className="text-xs">Founded</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center text-xs text-muted-foreground group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2 group-hover:bg-primary/20 group-hover:-rotate-12 transition-all duration-500">
+                        <Users className="h-3 w-3 text-primary group-hover:animate-pulse" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-300">{monastery.visitors}</div>
+                        <div className="text-xs">Visitors</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <Users className="h-3 w-3 mr-1" />
-                    {monastery.visitors}
+
+                  {/* Tags with improved design and stagger animation */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {monastery.tags.slice(1).map((tag, tagIndex) => (
+                      <Badge 
+                        key={tag} 
+                        variant="outline" 
+                        className="text-xs bg-primary/5 border-primary/20 hover:bg-primary/10 transition-all duration-300 group-hover:scale-105 group-hover:border-primary/40"
+                        style={{
+                          transitionDelay: `${tagIndex * 100}ms`
+                        }}
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
                   </div>
-                </div>
 
-                <div className="flex flex-wrap gap-1 mb-4">
-                  {monastery.tags.slice(1).map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
+                  {/* Enhanced button with advanced animations */}
+                  <Link href={`/tour/${monastery.id === 1 ? "potala-palace" : "potala-palace"}`}>
+                    <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden group/btn">
+                      {/* Button shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
+                      
+                      <span className="flex items-center justify-center relative z-10">
+                        Explore Virtual Tour
+                        <svg className="w-4 h-4 ml-2 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </span>
+                    </Button>
+                  </Link>
                 </div>
-
-                <Link href={`/tour/${monastery.id === 1 ? "potala-palace" : "potala-palace"}`}>
-                  <Button className="w-full bg-transparent" variant="outline">
-                    Explore Virtual Tour
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
           ))}

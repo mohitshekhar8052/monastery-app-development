@@ -38,38 +38,39 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Dark theme with monastery-inspired colors */
+  --background: oklch(0.08 0.02 270); /* Deep monastery night blue */
+  --foreground: oklch(0.92 0.02 45); /* Warm white with amber tint */
+  --card: oklch(0.12 0.02 270); /* Slightly lighter background for cards */
+  --card-foreground: oklch(0.9 0.02 45); /* Warm foreground for cards */
+  --popover: oklch(0.1 0.02 270);
+  --popover-foreground: oklch(0.92 0.02 45);
+  --primary: oklch(0.7 0.15 45); /* Warm amber/gold for primary actions */
+  --primary-foreground: oklch(0.08 0.02 270); /* Dark background as foreground */
+  --secondary: oklch(0.2 0.03 270); /* Medium dark blue-gray */
+  --secondary-foreground: oklch(0.9 0.02 45);
+  --muted: oklch(0.15 0.02 270); /* Muted dark background */
+  --muted-foreground: oklch(0.65 0.02 45); /* Muted warm foreground */
+  --accent: oklch(0.6 0.2 30); /* Orange-red accent like prayer flags */
+  --accent-foreground: oklch(0.95 0.02 45);
+  --destructive: oklch(0.55 0.2 15); /* Warm red for destructive actions */
+  --destructive-foreground: oklch(0.95 0.02 45);
+  --border: oklch(0.25 0.03 270); /* Visible but subtle borders */
+  --input: oklch(0.12 0.02 270); /* Input background */
+  --ring: oklch(0.7 0.15 45); /* Primary amber focus ring */
+  --chart-1: oklch(0.7 0.15 45);
+  --chart-2: oklch(0.6 0.2 30);
+  --chart-3: oklch(0.5 0.15 200);
+  --chart-4: oklch(0.65 0.18 280);
+  --chart-5: oklch(0.4 0.1 120);
+  --sidebar: oklch(0.06 0.02 270); /* Darker sidebar */
+  --sidebar-foreground: oklch(0.9 0.02 45);
+  --sidebar-primary: oklch(0.7 0.15 45);
+  --sidebar-primary-foreground: oklch(0.08 0.02 270);
+  --sidebar-accent: oklch(0.15 0.02 270);
+  --sidebar-accent-foreground: oklch(0.9 0.02 45);
+  --sidebar-border: oklch(0.2 0.03 270);
+  --sidebar-ring: oklch(0.7 0.15 45);
 }
 
 
@@ -83,6 +84,39 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Enhanced dark mode transitions */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+  
+  /* Better scrollbar for dark mode */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--muted);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--muted-foreground);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--foreground);
+  }
+  
+  /* Selection colors for dark mode */
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
   }
 }
 
@@ -155,3 +189,174 @@
   height: 100%;
   overflow: hidden;
 }
+
+/* Custom Animation Keyframes for Featured Monasteries */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes float-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  33% {
+    transform: translateY(-8px) rotate(120deg);
+    opacity: 1;
+  }
+  66% {
+    transform: translateY(4px) rotate(240deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-12px) rotate(180deg);
+    opacity: 0.9;
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translateY(-6px) rotate(90deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(2px) rotate(270deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s infinite;
+}
+
+.animate-float-1 {
+  animation: float-1 3s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-2 4s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-3 3.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Navbar Dropdown Animation Keyframes */
+@keyframes dropdown-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-2px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdown-bounce-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(2px) scale(1.02);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-1px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dropdown-item-slide {
+  0% {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Navbar Dropdown Animation Classes */
+.dropdown-enter {
+  animation: dropdown-bounce-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.dropdown-item-enter {
+  animation: dropdown-item-slide 0.3s ease-out forwards;
+}
+
+/* Staggered animation delays for dropdown items */
+.dropdown-item-enter:nth-child(1) { animation-delay: 0ms; }
+.dropdown-item-enter:nth-child(2) { animation-delay: 50ms; }
+.dropdown-item-enter:nth-child(3) { animation-delay: 100ms; }
+.dropdown-item-enter:nth-child(4) { animation-delay: 150ms; }
+.dropdown-item-enter:nth-child(5) { animation-delay: 200ms; }

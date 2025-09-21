@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/components/auth-provider"
 import { GamificationProvider } from "@/components/gamification-provider"
 import { LanguageProvider } from "@/components/language-provider"
@@ -22,17 +23,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <LanguageProvider>
-          <OfflineProvider>
-            <AuthProvider>
-              <GamificationProvider>
-                <Suspense fallback={null}>{children}</Suspense>
-              </GamificationProvider>
-            </AuthProvider>
-          </OfflineProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <OfflineProvider>
+              <AuthProvider>
+                <GamificationProvider>
+                  <Suspense fallback={null}>{children}</Suspense>
+                </GamificationProvider>
+              </AuthProvider>
+            </OfflineProvider>
+          </LanguageProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

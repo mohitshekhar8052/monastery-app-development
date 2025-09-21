@@ -136,6 +136,69 @@ export function AISearchInterface() {
         </CardContent>
       </Card>
 
+      {/* Search Results */}
+      {searchResults.length > 0 && (
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <h3 className="font-semibold">AI Search Results</h3>
+              <Badge variant="secondary">{searchResults.length} results</Badge>
+            </div>
+            <div className="space-y-4">
+              {searchResults.map((result, index) => (
+                <div
+                  key={index}
+                  className="group p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="capitalize">
+                        {result.type}
+                      </Badge>
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs text-muted-foreground">Relevance:</span>
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <div
+                              key={i}
+                              className={`w-2 h-2 rounded-full ${
+                                i < Math.floor(result.relevance * 5)
+                                  ? "bg-primary"
+                                  : "bg-muted"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-muted-foreground ml-1">
+                          {Math.round(result.relevance * 100)}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <h4 className="font-medium text-lg mb-1 group-hover:text-primary transition-colors">
+                    {result.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {result.description}
+                  </p>
+                  <div className="flex items-center justify-between mt-3">
+                    <Button variant="ghost" size="sm" className="text-primary hover:bg-primary/10">
+                      Learn More
+                    </Button>
+                    <div className="flex gap-1">
+                      <Button variant="ghost" size="sm" className="hover:bg-muted">
+                        <Sparkles className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Suggested Queries */}
       <Card>
         <CardContent className="p-6">
