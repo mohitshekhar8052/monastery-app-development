@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface LightningProps {
   hue?: number;
@@ -10,14 +10,31 @@ interface LightningProps {
 
 const Lightning: React.FC<LightningProps> = ({ hue = 230, xOffset = 0, speed = 1, intensity = 1, size = 1 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile devices for performance optimization
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const resizeCanvas = () => {
-      canvas.width = canvas.clientWidth;
-      canvas.height = canvas.clientHeight;
+      // Reduce resolution on mobile for better performance
+      const pixelRatio = isMobile ? Math.min(window.devicePixelRatio, 1.5) : window.devicePixelRatio;
+      canvas.width = canvas.clientWidth * pixelRatio;
+      canvas.height = canvas.clientHeight * pixelRatio;
+      canvas.style.width = canvas.clientWidth + 'px';
+      canvas.style.height = canvas.clientHeight + 'px';
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -161,28 +178,50 @@ const Lightning: React.FC<LightningProps> = ({ hue = 230, xOffset = 0, speed = 1
     const uSizeLocation = gl.getUniformLocation(program, 'uSize');
 
     const startTime = performance.now();
-    const render = () => {
-      resizeCanvas();
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.uniform2f(iResolutionLocation, canvas.width, canvas.height);
-      const currentTime = performance.now();
-      gl.uniform1f(iTimeLocation, (currentTime - startTime) / 1000.0);
-      gl.uniform1f(uHueLocation, hue);
-      gl.uniform1f(uXOffsetLocation, xOffset);
-      gl.uniform1f(uSpeedLocation, speed);
-      gl.uniform1f(uIntensityLocation, intensity);
-      gl.uniform1f(uSizeLocation, size);
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-      requestAnimationFrame(render);
+    let animationId: number;
+    let lastFrameTime = 0;
+    const targetFPS = isMobile ? 30 : 60; // Reduce FPS on mobile
+    const frameInterval = 1000 / targetFPS;
+    
+    const render = (currentTime: number) => {
+      if (currentTime - lastFrameTime >= frameInterval) {
+        resizeCanvas();
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        gl.uniform2f(iResolutionLocation, canvas.width, canvas.height);
+        gl.uniform1f(iTimeLocation, (currentTime - startTime) / 1000.0);
+        gl.uniform1f(uHueLocation, hue);
+        gl.uniform1f(uXOffsetLocation, xOffset);
+        gl.uniform1f(uSpeedLocation, speed);
+        gl.uniform1f(uIntensityLocation, intensity * (isMobile ? 0.7 : 1)); // Reduce intensity on mobile
+        gl.uniform1f(uSizeLocation, size);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        lastFrameTime = currentTime;
+      }
+      animationId = requestAnimationFrame(render);
     };
-    requestAnimationFrame(render);
+    animationId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
     };
-  }, [hue, xOffset, speed, intensity, size]);
+  }, [hue, xOffset, speed, intensity, size, isMobile]);
 
-  return <canvas ref={canvasRef} className="w-full h-full relative" />;
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="w-full h-full relative" 
+      style={{
+        touchAction: 'none',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        pointerEvents: 'none',
+        willChange: isMobile ? 'auto' : 'transform'
+      }}
+    />
+  );
 };
 
 export default Lightning;

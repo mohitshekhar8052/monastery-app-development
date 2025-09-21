@@ -36,17 +36,17 @@ export function Header() {
             isScrolled ? "h-14" : "h-16"
           }`}
         >
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
             <div
               className={`flex items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 shadow-md hover:shadow-lg ${
-                isScrolled ? "h-9 w-9" : "h-10 w-10"
+                isScrolled ? "h-8 w-8 sm:h-9 sm:w-9" : "h-9 w-9 sm:h-10 sm:w-10"
               }`}
             >
-              <MapPin className={`transition-all duration-300 ${isScrolled ? "h-4 w-4" : "h-5 w-5"}`} />
+              <MapPin className={`transition-all duration-300 ${isScrolled ? "h-3 w-3 sm:h-4 sm:w-4" : "h-4 w-4 sm:h-5 sm:w-5"}`} />
             </div>
             <span
               className={`font-bold text-foreground transition-all duration-300 ${
-                isScrolled ? "text-lg" : "text-xl"
+                isScrolled ? "text-base sm:text-lg" : "text-lg sm:text-xl"
               }`}
             >
               Sacred Journeys
@@ -182,8 +182,10 @@ export function Header() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-3">
-            <LanguageSelector />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden sm:flex">
+              <LanguageSelector />
+            </div>
 
             <ThemeToggle />
 
@@ -199,13 +201,15 @@ export function Header() {
               </Button>
             </Link>
 
-            <UserMenu />
+            <div className="hidden sm:flex">
+              <UserMenu />
+            </div>
 
             <Button
               variant="ghost"
               size="sm"
               className={`lg:hidden transition-all duration-300 hover:scale-110 hover:bg-primary/10 ${
-                isScrolled ? "h-8" : "h-9"
+                isScrolled ? "h-8 w-8" : "h-9 w-9"
               }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -215,15 +219,33 @@ export function Header() {
         </div>
 
         <div
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-out bg-background/98 backdrop-blur-xl ${
-            isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-out bg-background/98 backdrop-blur-xl border-t border-border ${
+            isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="container mx-auto px-4 py-4">
+            {/* Mobile User Menu */}
+            <div className="flex items-center justify-between mb-4 pb-4 border-b border-border">
+              <div className="flex items-center gap-3">
+                <UserMenu />
+                <LanguageSelector />
+              </div>
+              <Link href="/search">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="transition-all duration-300 hover:scale-110 hover:bg-primary/10"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Search className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+            
             <nav className="grid grid-cols-2 gap-3">
               <Link
                 href="/map"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>🗺️</span>
@@ -231,7 +253,7 @@ export function Header() {
               </Link>
               <Link
                 href="/archives"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>📚</span>
@@ -239,7 +261,7 @@ export function Header() {
               </Link>
               <Link
                 href="/gallery"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>🖼️</span>
@@ -247,7 +269,7 @@ export function Header() {
               </Link>
               <Link
                 href="/meditation"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>🧘</span>
@@ -255,7 +277,7 @@ export function Header() {
               </Link>
               <Link
                 href="/virtual-tours"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>🎯</span>
@@ -263,7 +285,7 @@ export function Header() {
               </Link>
               <Link
                 href="/guide"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>🤖</span>
@@ -271,7 +293,7 @@ export function Header() {
               </Link>
               <Link
                 href="/community"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>👥</span>
@@ -279,7 +301,7 @@ export function Header() {
               </Link>
               <Link
                 href="/events"
-                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-2 rounded-lg hover:bg-primary/10"
+                className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-all duration-200 hover:translate-x-1 p-3 rounded-lg hover:bg-primary/10 min-h-[48px]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <span>📅</span>
@@ -292,13 +314,14 @@ export function Header() {
 
       <GamificationWidget />
 
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
         <Link href="/meditation">
           <Button
             size="lg"
-            className="rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 bg-primary hover:bg-primary/90 text-primary-foreground animate-pulse hover:animate-none dark:shadow-primary/30"
+            className="rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 bg-primary hover:bg-primary/90 text-primary-foreground animate-pulse hover:animate-none dark:shadow-primary/30 px-4 py-3 sm:px-6 sm:py-4 text-sm sm:text-base min-h-[48px]"
           >
-            🧘 Meditate
+            <span className="text-lg sm:text-xl mr-1 sm:mr-2">🧘</span>
+            <span className="font-semibold">Meditate</span>
           </Button>
         </Link>
       </div>

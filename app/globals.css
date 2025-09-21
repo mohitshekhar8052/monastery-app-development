@@ -94,6 +94,37 @@
     transition-duration: 150ms;
   }
   
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    * {
+      /* Reduce transform complexity on mobile for better performance */
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    
+    /* Optimize touch targets */
+    button, a[role="button"], input[type="button"], input[type="submit"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Improve text readability on mobile */
+    p, span, div {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    
+    /* Reduce motion for better mobile performance */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  }
+  
   /* Better scrollbar for dark mode */
   ::-webkit-scrollbar {
     width: 8px;
@@ -117,6 +148,19 @@
   ::selection {
     background-color: var(--primary);
     color: var(--primary-foreground);
+  }
+  
+  /* Mobile touch improvements */
+  @media (hover: none) and (pointer: coarse) {
+    /* Optimize for touch devices */
+    .group:hover, .hover\:scale-105:hover, .hover\:scale-110:hover {
+      transform: none;
+    }
+    
+    /* Reduce hover effects on touch devices */
+    .hover\:bg-primary\/10:hover {
+      background-color: transparent;
+    }
   }
 }
 

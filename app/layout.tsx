@@ -15,6 +15,30 @@ export const metadata: Metadata = {
   title: "Sacred Journeys - Virtual Monastery Tours",
   description: "Explore Buddhist and Tibetan monasteries through immersive virtual tours and cultural preservation",
   generator: "v0.app",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#435B69" },
+    { media: "(prefers-color-scheme: dark)", color: "#B8860B" },
+  ],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Sacred Journeys",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+  },
 }
 
 export default function RootLayout({
