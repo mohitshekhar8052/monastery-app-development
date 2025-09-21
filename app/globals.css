@@ -246,6 +246,93 @@
   }
 }
 
+/* Scroll Animation Keyframes */
+@keyframes scroll-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scroll-rotate-in {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes scroll-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes bounce-subtle {
   0%, 100% {
     transform: translateY(0);
@@ -318,6 +405,56 @@
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
 }
+
+/* Scroll Animation Classes */
+.scroll-animate {
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+}
+
+.scroll-fade-in {
+  animation: scroll-fade-in 0.8s ease-out forwards;
+}
+
+.scroll-slide-up {
+  animation: scroll-slide-up 0.8s ease-out forwards;
+}
+
+.scroll-slide-down {
+  animation: scroll-slide-down 0.8s ease-out forwards;
+}
+
+.scroll-slide-left {
+  animation: scroll-slide-left 0.8s ease-out forwards;
+}
+
+.scroll-slide-right {
+  animation: scroll-slide-right 0.8s ease-out forwards;
+}
+
+.scroll-scale-in {
+  animation: scroll-scale-in 0.8s ease-out forwards;
+}
+
+.scroll-rotate-in {
+  animation: scroll-rotate-in 0.8s ease-out forwards;
+}
+
+.scroll-zoom-in {
+  animation: scroll-zoom-in 0.8s ease-out forwards;
+}
+
+/* Staggered Animation Classes */
+.scroll-stagger-1 { animation-delay: 0.1s; }
+.scroll-stagger-2 { animation-delay: 0.2s; }
+.scroll-stagger-3 { animation-delay: 0.3s; }
+.scroll-stagger-4 { animation-delay: 0.4s; }
+.scroll-stagger-5 { animation-delay: 0.5s; }
+.scroll-stagger-6 { animation-delay: 0.6s; }
 
 .animate-bounce-subtle {
   animation: bounce-subtle 2s infinite;

@@ -4,11 +4,19 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Play, Volume2, RotateCcw, Maximize } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
+import { useScrollAnimation, useStaggeredScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export function VirtualTourPreview() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
+  
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 })
+  const { ref: previewRef, isVisible: previewVisible } = useScrollAnimation<HTMLDivElement>({ delay: 200 })
+  const { ref: featuresRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(3, { 
+    threshold: 0.1, 
+    staggerDelay: 200 
+  })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -38,7 +46,7 @@ export function VirtualTourPreview() {
   return (
     <section id="virtual-tours" className="py-20 px-4">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-animate ${headerVisible ? 'scroll-slide-up' : ''}`} ref={headerRef}>
           <h2 className="text-3xl md:text-4xl font-bold text-balance mb-4">Immersive Virtual Experience</h2>
           <p className="text-lg text-muted-foreground text-pretty max-w-2xl mx-auto">
             Step inside sacred spaces with our cutting-edge 360° virtual tours. Experience the serenity and
@@ -46,7 +54,7 @@ export function VirtualTourPreview() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto" style={{ perspective: '1000px' }}>
+        <div className={`max-w-4xl mx-auto scroll-animate ${previewVisible ? 'scroll-scale-in' : ''}`} style={{ perspective: '1000px' }} ref={previewRef}>
           <Card 
             ref={cardRef}
             className="overflow-hidden transform-gpu transition-all duration-500 hover:shadow-2xl"
@@ -160,8 +168,8 @@ export function VirtualTourPreview() {
           </Card>
 
           {/* Enhanced Tour Features with 3D animations */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <div className="text-center group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8" ref={featuresRef}>
+            <div className={`text-center group scroll-animate ${visibleItems[0] ? 'scroll-slide-up' : ''}`}>
               <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <img
@@ -174,7 +182,7 @@ export function VirtualTourPreview() {
               <p className="text-sm text-muted-foreground transform transition-all duration-300 group-hover:translate-y-[-2px]">High-resolution panoramic views of every sacred space</p>
             </div>
 
-            <div className="text-center group">
+            <div className={`text-center group scroll-animate ${visibleItems[1] ? 'scroll-slide-up' : ''}`}>
               <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <Volume2 className="h-6 w-6 text-primary transform transition-all duration-500 group-hover:scale-125 relative z-10" />
@@ -183,7 +191,7 @@ export function VirtualTourPreview() {
               <p className="text-sm text-muted-foreground transform transition-all duration-300 group-hover:translate-y-[-2px]">Expert commentary in multiple languages</p>
             </div>
 
-            <div className="text-center group">
+            <div className={`text-center group scroll-animate ${visibleItems[2] ? 'scroll-slide-up' : ''}`}>
               <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <img

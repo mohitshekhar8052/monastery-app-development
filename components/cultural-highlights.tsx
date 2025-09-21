@@ -1,7 +1,10 @@
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Calendar, BookOpen, Music, Palette, ArrowRight, Bookmark, Share2 } from "lucide-react"
+import { useScrollAnimation, useStaggeredScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const culturalItems = [
   {
@@ -47,10 +50,17 @@ const culturalItems = [
 ]
 
 export function CulturalHighlights() {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 })
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(culturalItems.length, { 
+    threshold: 0.1, 
+    staggerDelay: 150 
+  })
+  const { ref: buttonRef, isVisible: buttonVisible } = useScrollAnimation<HTMLDivElement>({ delay: 300 })
+
   return (
     <section id="cultural-heritage" className="py-20 px-4 bg-muted/30">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-animate ${headerVisible ? 'scroll-slide-down' : ''}`} ref={headerRef}>
           <h2 className="text-3xl md:text-4xl font-bold text-balance mb-4">Cultural Heritage & Archives</h2>
           <p className="text-lg text-muted-foreground text-pretty max-w-2xl mx-auto">
             Discover the rich cultural heritage preserved through centuries. Access rare manuscripts, witness sacred
@@ -58,17 +68,13 @@ export function CulturalHighlights() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" ref={gridRef}>
           {culturalItems.map((item, index) => {
             const IconComponent = item.icon
             return (
               <Card 
                 key={item.id} 
-                className="group relative overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-700 bg-gradient-to-br from-background via-background to-muted/20 hover:bg-gradient-to-br hover:from-background hover:via-muted/10 hover:to-primary/5 transform hover:-translate-y-2 hover:rotate-1 cursor-pointer animate-fade-in-up"
-                style={{
-                  animationDelay: `${index * 150}ms`,
-                  animationFillMode: 'both'
-                }}
+                className={`group relative overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-700 bg-gradient-to-br from-background via-background to-muted/20 hover:bg-gradient-to-br hover:from-background hover:via-muted/10 hover:to-primary/5 transform hover:-translate-y-2 hover:rotate-1 cursor-pointer scroll-animate ${visibleItems[index] ? 'scroll-slide-left' : ''}`}
               >
                 {/* Animated border glow effect */}
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse-glow" />
@@ -155,7 +161,7 @@ export function CulturalHighlights() {
           })}
         </div>
 
-        <div className="text-center mt-12">
+        <div className={`text-center mt-12 scroll-animate ${buttonVisible ? 'scroll-zoom-in' : ''}`} ref={buttonRef}>
           <Button 
             size="lg" 
             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 px-8 py-3"

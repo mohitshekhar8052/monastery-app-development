@@ -4,8 +4,14 @@ import { Button } from "@/components/ui/button"
 import { Play, MapPin, Sparkles } from "lucide-react"
 import Link from "next/link"
 import Lightning from "./Lightning"
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export function HeroSection() {
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 })
+  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>({ delay: 200 })
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 })
+  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation<HTMLDivElement>({ delay: 600 })
+
   return (
     <section className="relative min-h-screen py-12 sm:py-16 md:py-20 px-4 text-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 dark:from-background dark:via-background dark:to-background/80">
       <div className="absolute inset-0 z-0">
@@ -24,32 +30,32 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto max-w-4xl relative z-10">
-        <div className="relative mb-6 sm:mb-8 flex justify-center">
+        <div className={`relative mb-6 sm:mb-8 flex justify-center scroll-animate ${titleVisible ? 'scroll-scale-in' : ''}`} ref={titleRef}>
           <div className="relative">
             <img
               src="/tibetan-monastery-prayer-flags-mountain-view.jpg"
               alt="Sacred monastery with prayer flags against mountain backdrop"
-              className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-4 border-primary/20 animate-fade-in-up"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-4 border-primary/20"
             />
             <div className="absolute inset-0 rounded-full bg-gradient-to-t from-primary/20 to-transparent"></div>
             <Sparkles className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 h-6 w-6 sm:h-8 sm:w-8 text-primary animate-bounce" />
           </div>
         </div>
 
-        <div className="relative mb-4 sm:mb-6">
+        <div className={`relative mb-4 sm:mb-6 scroll-animate ${titleVisible ? 'scroll-slide-up' : ''}`}>
           <Sparkles className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 h-4 w-4 sm:h-6 sm:w-6 text-primary animate-bounce" />
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-balance leading-tight animate-fade-in-up text-foreground px-2">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-balance leading-tight text-foreground px-2">
             Discover Sacred Monasteries Through Virtual Journeys
           </h1>
           <Sparkles className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 h-4 w-4 sm:h-6 sm:w-6 text-primary animate-bounce delay-300" />
         </div>
 
-        <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-pretty mb-6 sm:mb-8 max-w-2xl mx-auto animate-fade-in-up delay-200 px-4">
+        <p className={`text-base sm:text-lg md:text-xl text-muted-foreground text-pretty mb-6 sm:mb-8 max-w-2xl mx-auto px-4 scroll-animate ${subtitleVisible ? 'scroll-fade-in' : ''}`} ref={subtitleRef}>
           Immerse yourself in the spiritual heritage of Buddhist and Tibetan monasteries. Explore ancient wisdom,
           stunning architecture, and cultural treasures from anywhere in the world.
         </p>
 
-        <div className="flex flex-col gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 animate-fade-in-up delay-300 animate-float px-4">
+        <div className={`flex flex-col gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-4 scroll-animate ${buttonsVisible ? 'scroll-slide-up' : ''}`} ref={buttonsRef}>
           <Link href="/tour/potala-palace" className="w-full sm:w-auto">
             <Button
               size="lg"
@@ -90,8 +96,8 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-12 sm:mt-16 px-4">
-          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-400">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-12 sm:mt-16 px-4 scroll-animate ${statsVisible ? 'scroll-slide-up' : ''}`} ref={statsRef}>
+          <div className="text-center group hover:scale-105 transition-all duration-300">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center group-hover:bg-card transition-colors duration-300 shadow-lg overflow-hidden border border-border">
               <img
                 src="/butter-lamps-monastery-golden-light-prayer.jpg"
@@ -107,7 +113,7 @@ export function HeroSection() {
             </p>
           </div>
 
-          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-500">
+          <div className="text-center group hover:scale-105 transition-all duration-300">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center group-hover:bg-card transition-colors duration-300 shadow-lg border border-border">
               <span className="text-2xl sm:text-3xl">🤖</span>
             </div>
@@ -119,7 +125,7 @@ export function HeroSection() {
             </p>
           </div>
 
-          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-600">
+          <div className="text-center group hover:scale-105 transition-all duration-300">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center group-hover:bg-card transition-colors duration-300 shadow-lg overflow-hidden border border-border">
               <img
                 src="/tibetan-mask-making-artisan-colorful-traditional.jpg"
@@ -135,7 +141,7 @@ export function HeroSection() {
             </p>
           </div>
 
-          <div className="text-center group hover:scale-105 transition-all duration-300 animate-fade-in-up delay-700">
+          <div className="text-center group hover:scale-105 transition-all duration-300">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 rounded-full bg-card/80 backdrop-blur-sm flex items-center justify-center group-hover:bg-card transition-colors duration-300 shadow-lg border border-border">
               <span className="text-2xl sm:text-3xl">📱</span>
             </div>

@@ -1,8 +1,11 @@
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Clock, Users } from "lucide-react"
 import Link from "next/link"
+import { useStaggeredScrollAnimation, useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const monasteries = [
   {
@@ -69,10 +72,17 @@ const monasteries = [
 ]
 
 export function FeaturedMonasteries() {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 })
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(monasteries.length, { 
+    threshold: 0.1, 
+    staggerDelay: 150 
+  })
+  const { ref: buttonRef, isVisible: buttonVisible } = useScrollAnimation<HTMLDivElement>({ delay: 200 })
+
   return (
     <section id="monasteries" className="py-20 px-4 bg-muted/30">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-animate ${headerVisible ? 'scroll-slide-down' : ''}`} ref={headerRef}>
           <h2 className="text-3xl md:text-4xl font-bold text-balance mb-4">Featured Sacred Monasteries</h2>
           <p className="text-lg text-muted-foreground text-pretty max-w-2xl mx-auto">
             Explore our curated collection of the world's most significant Buddhist and Tibetan monasteries, each with
@@ -80,15 +90,11 @@ export function FeaturedMonasteries() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" ref={gridRef}>
           {monasteries.map((monastery, index) => (
             <Card 
               key={monastery.id} 
-              className="group relative overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-700 bg-gradient-to-br from-background via-background to-muted/20 hover:bg-gradient-to-br hover:from-background hover:via-muted/10 hover:to-primary/5 transform hover:-translate-y-2 hover:rotate-1 cursor-pointer animate-fade-in-up"
-              style={{
-                animationDelay: `${index * 150}ms`,
-                animationFillMode: 'both'
-              }}
+              className={`group relative overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-700 bg-gradient-to-br from-background via-background to-muted/20 hover:bg-gradient-to-br hover:from-background hover:via-muted/10 hover:to-primary/5 transform hover:-translate-y-2 hover:rotate-1 cursor-pointer scroll-animate ${visibleItems[index] ? 'scroll-scale-in' : ''}`}
             >
               {/* Animated border glow effect */}
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse-glow" />
@@ -193,7 +199,7 @@ export function FeaturedMonasteries() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className={`text-center mt-12 scroll-animate ${buttonVisible ? 'scroll-fade-in' : ''}`} ref={buttonRef}>
           <Button size="lg">View All Monasteries</Button>
         </div>
       </div>

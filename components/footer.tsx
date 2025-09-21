@@ -1,12 +1,22 @@
+"use client"
+
 import { MapPin, Mail, Phone, Globe } from "lucide-react"
+import { useScrollAnimation, useStaggeredScrollAnimation } from "@/hooks/use-scroll-animation"
 
 export function Footer() {
+  const { ref: brandRef, isVisible: brandVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 })
+  const { ref: linksRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(2, { 
+    threshold: 0.1, 
+    staggerDelay: 200 
+  })
+  const { ref: bottomRef, isVisible: bottomVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 })
+
   return (
     <footer className="bg-secondary text-secondary-foreground py-12 px-4">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
+          <div className={`col-span-1 md:col-span-2 scroll-animate ${brandVisible ? 'scroll-slide-right' : ''}`} ref={brandRef}>
             <div className="flex items-center gap-2 mb-4">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
                 <MapPin className="h-4 w-4" />
@@ -30,7 +40,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className={`scroll-animate ${visibleItems[0] ? 'scroll-slide-up' : ''}`} ref={linksRef}>
             <h3 className="font-semibold mb-4">Explore</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -57,7 +67,7 @@ export function Footer() {
           </div>
 
           {/* Resources */}
-          <div>
+          <div className={`scroll-animate ${visibleItems[1] ? 'scroll-slide-up' : ''}`}>
             <h3 className="font-semibold mb-4">Resources</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -84,7 +94,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground">
+        <div className={`border-t border-border mt-8 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground scroll-animate ${bottomVisible ? 'scroll-fade-in' : ''}`} ref={bottomRef}>
           <div className="flex items-center gap-4 mb-4 md:mb-0">
             <span>© 2024 Sacred Journeys. All rights reserved.</span>
             <div className="flex items-center gap-1">
